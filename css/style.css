@@ -1,0 +1,22 @@
+.main-goods{
+    /* background:#eef9cb; */
+}
+
+.main-goods h1{
+    border-radius: 10px;
+    padding:10px;
+    margin-bottom:30px;
+    background:#eee;
+}
+
+.resp {
+    aspect-ratio: 242 / 200;
+    object-fit: cover;
+}
+
+.line-clamp{
+    overflow:hidden !important;
+    display: -webkit-box !important;
+    -webkit-box-orient: vertical !important;
+    -webkit-line-clamp: 1 !important;
+}
