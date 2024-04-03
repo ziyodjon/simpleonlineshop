@@ -2,13 +2,14 @@ import * as api from './api.js';
 import * as helpers from './helpers.js';
 
 const navBar = document.getElementById('navbar');
+const userprofile = document.querySelector('.userprofile');
+const authData = helpers.getFromLocalStorage('authData');
+const productsRow = document.querySelector('.main-good-list');
+
 
 const LIMIT =  12;
-//const token = await api.getToken('john@mail.com','changeme');
 
-//helpers.saveToLocalStorage('token',token.access_token);
 
-// console.log(token.access_token);
 
 
 function createLoginForm(){
@@ -19,7 +20,7 @@ function createLoginForm(){
     const inputPassword = helpers.createEl('input',['form-control']);
     const submitBtn = helpers.createEl('button',['btn','btn-success']);
 
-    inputEmail.placeholder = 'Email';
+    inputEmail.placeholder = 'Login';
     inputPassword.placeholder = 'Password';
     submitBtn.type = 'submit';
     submitBtn.textContent = 'Enter';
@@ -27,18 +28,50 @@ function createLoginForm(){
     formGroup2.append(inputPassword);
     form.append(formGroup1,formGroup2,submitBtn);
 
-    form.addEventListener('click',(e)=>{
-        e.preventDefault;
+    submitBtn.addEventListener('click',async (event)=>{
+        event.preventDefault();
+        inputEmail.value = 'kminchelle';
+        inputPassword.value = '0lelplR';
+        const authData = await api.getToken(inputEmail.value,inputPassword.value);
+        helpers.saveToLocalStorage('authData',authData);
+        userprofile.innerHTML = '';
+        userprofile.append(createUserProfile(authData));
     });
 
     return form;
 }
 
-navBar.append(createLoginForm());
+function createUserProfile(authData){
+    const userProfileWrap = helpers.createEl('div',['userprofile2']);
+    userProfileWrap.innerHTML = `
+    <div class="btn-group">
+    <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      ${authData.firstName}  ${authData.lastName} <span class="caret"></span>
+    </button>
+        <ul class="dropdown-menu">
+        <li><a href="profile.html">Profile</a></li>
+        <li role="separator" class="divider"></li>
+        <li><a href="#">Exit</a></li>
+        </ul>
+  </div>
+    `;
+
+    
+    return userProfileWrap;
+}
 
 
 
-const productsRow = document.querySelector('.main-good-list');
+if(!authData){
+    userprofile.append(createLoginForm());
+}else{
+    userprofile.appendChild(createUserProfile(authData));
+}
+
+
+
+
+
 
 const getProductsFunc = async (page) => {
     const products = await api.getProducts(`https://dummyjson.com/products?limit=${LIMIT}&skip=${(page - 1) * LIMIT}`);
@@ -48,7 +81,6 @@ const getProductsFunc = async (page) => {
 
 function printPagination(){
     const  total = 100 / LIMIT;
-    console.log(Math.ceil(total));
     
     const paginationWrap = document.querySelector('.pagination');
     for(let i = 1; Math.ceil(total) >= i; i ++){
@@ -91,14 +123,11 @@ function printProducts(products){
             </div>
         </div>`;
     
-        // const moreBtn = document.querySelector('.btn-success');
-        // moreBtn.addEventListener('click',(eve)=>{
-        //     console.log(eve);
-        // });
-    
         productsRow.innerHTML += oneProduct;
     });
 }
+
+
 
 printProducts(products);
 

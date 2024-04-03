@@ -9,11 +9,16 @@ function createEl(tagName,className = []){
 }
 
 function saveToLocalStorage(name,data){
-    localStorage.setItem(name, data);
+    localStorage.setItem(name, JSON.stringify(data));
+}
+
+function getFromLocalStorage(name){
+    return JSON.parse(localStorage.getItem(name));
 }
 
 
 export {
     createEl,
     saveToLocalStorage,
+    getFromLocalStorage,
 }

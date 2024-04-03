@@ -23,3 +23,11 @@
 .pagination-wrap{
     text-align: center;
 }
+
+.userprofile{
+    color:#fff;
+    padding-top:9px;
+}
+.link{
+    cursor:pointer;
+}

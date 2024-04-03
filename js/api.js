@@ -4,16 +4,16 @@ async function getProducts(url){
     return await resp.json();
 }
 
-async function getToken(email,password){
-    const resp = await fetch('https://api.escuelajs.co/api/v1/auth/login',{
+async function getToken(login,password){
+    const resp = await fetch('https://dummyjson.com/auth/login', {
         method: 'POST',
-        headers: {
-            "Content-Type":"application/json",
-        },
-        body:JSON.stringify({
-            "email": email,
-            "password": password
-        }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          
+          username: login,
+          password: password,
+          expiresInMins: 30, // optional, defaults to 60
+        })
     });
 
     return await resp.json();
