@@ -20,3 +20,6 @@
     -webkit-box-orient: vertical !important;
     -webkit-line-clamp: 1 !important;
 }
+.pagination-wrap{
+    text-align: center;
+}
