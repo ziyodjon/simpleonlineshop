@@ -31,3 +31,7 @@
 .link{
     cursor:pointer;
 }
+
+.detail-goods-wrap h1{
+    position:relative;
+}

@@ -16,9 +16,14 @@ function getFromLocalStorage(name){
     return JSON.parse(localStorage.getItem(name));
 }
 
+function removeFromLocalStorage(name){
+    localStorage.removeItem(name);
+}
+
 
 export {
     createEl,
     saveToLocalStorage,
     getFromLocalStorage,
+    removeFromLocalStorage,
 }

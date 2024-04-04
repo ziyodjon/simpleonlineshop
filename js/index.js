@@ -10,8 +10,6 @@ const productsRow = document.querySelector('.main-good-list');
 const LIMIT =  12;
 
 
-
-
 function createLoginForm(){
     const form = helpers.createEl('form',['navbar-form','navbar-right']);
     const formGroup1 = helpers.createEl('div',['form-group']);
@@ -51,12 +49,10 @@ function createUserProfile(authData){
         <ul class="dropdown-menu">
         <li><a href="profile.html">Profile</a></li>
         <li role="separator" class="divider"></li>
-        <li><a href="#">Exit</a></li>
+        <li><a href="#" class="logout">Exit</a></li>
         </ul>
-  </div>
-    `;
+  </div>`;
 
-    
     return userProfileWrap;
 }
 
@@ -107,7 +103,7 @@ function printPagination(){
 const products = await getProductsFunc(0);
 
 function printProducts(products){
-    products['products'].forEach((el,indx) => {
+    products['products'].forEach((el) => {
         const oneProduct = `
         <div class="col-sm-6 col-md-4">
             <div class="thumbnail">
@@ -117,7 +113,7 @@ function printProducts(products){
                 <p class="line-clamp">${el.description}</p>
                 <p>
                     <a href="#" class="btn btn-primary" role="button">${el.price} $</a> 
-                    <a href="#" class="btn btn-success" role="button">More information</a>
+                    <a href="detail.html?prodId=${el.id}" class="btn btn-success" role="button">More information</a>
                 </p>
             </div>
             </div>
@@ -132,3 +128,8 @@ function printProducts(products){
 printProducts(products);
 
 printPagination();
+
+const logout = document.querySelector('.logout');
+logout.addEventListener('click',(event) => {
+    helpers.removeFromLocalStorage('authData');
+});

@@ -14,7 +14,7 @@ function createUserProfile(authData){
         <ul class="dropdown-menu">
         <li><a href="profile.html">Profile</a></li>
         <li role="separator" class="divider"></li>
-        <li><a href="#">Exit</a></li>
+        <li><a href="#" class="logout">Exit</a></li>
         </ul>
   </div>
     `;
