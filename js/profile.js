@@ -4,24 +4,7 @@ const userProfilePage = document.querySelector('.userprofilepage');
 const authData = helpers.getFromLocalStorage('authData');
 const userprofile = document.querySelector('.userprofile');
 
-function createUserProfile(authData){
-    const userProfileWrap = helpers.createEl('div',['userprofile2']);
-    userProfileWrap.innerHTML = `
-    <div class="btn-group">
-    <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      ${authData.firstName}  ${authData.lastName} <span class="caret"></span>
-    </button>
-        <ul class="dropdown-menu">
-        <li><a href="profile.html">Profile</a></li>
-        <li role="separator" class="divider"></li>
-        <li><a href="#" class="logout">Exit</a></li>
-        </ul>
-  </div>
-    `;
 
-    
-    return userProfileWrap;
-}
 
 function createUserProfilePage(){
     const userInfo = `
@@ -47,7 +30,7 @@ function createUserProfilePage(){
 if(!authData){
     userprofile.append(createLoginForm());
 }else{
-    userprofile.appendChild(createUserProfile(authData));
+    userprofile.appendChild(helpers.createUserProfile(authData));
 }
 
 createUserProfilePage();

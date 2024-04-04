@@ -1,53 +1,18 @@
-//console.log(parseInt(window.location.search));
+import * as api from './api.js';
+import * as helpers from './helpers.js';
 
 const url = window.location.search;
-const temp = /[0-9/.]+/
-
-const res = url.match(temp)
-
-const resp = await fetch('https://dummyjson.com/products/'+res[0]);
-
-const data = await resp.json();
-
-console.log(data);
-
-
-
-// brand
-// : 
-// "Samsung"
-// category
-// : 
-// "smartphones"
-// description
-// : 
-// "Samsung's new variant which goes beyond Galaxy to the Universe"
-// discountPercentage
-// : 
-// 15.46
-// id
-// : 
-// 3
-// images
-// : 
-// ['https://cdn.dummyjson.com/product-images/3/1.jpg']
-// price
-// : 
-// 1249
-// rating
-// : 
-// 4.09
-// stock
-// : 
-// 36
-// thumbnail
-// : 
-// "https://cdn.dummyjson.com/product-images/3/thumbnail.jpg"
-// title
-// : 
-// "Samsung Universe 9"
-
+const data = await api.getDetailPage(url);
 const detailGoodsInfo = document.querySelector('.detail-goods-info');
+const userprofile = document.querySelector('.userprofile');
+const authData = helpers.getFromLocalStorage('authData');
+
+
+if(!authData){
+    userprofile.append(createLoginForm());
+}else{
+    userprofile.appendChild(helpers.createUserProfile(authData));
+}
 
 detailGoodsInfo.innerHTML = `
 <div class="row">
